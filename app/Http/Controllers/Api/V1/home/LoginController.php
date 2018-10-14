@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Services\WxService;
 use Illuminate\Http\Request;
 
 
@@ -13,8 +12,6 @@ class LoginController extends Controller
 
     const APPID = 'wxcecf234ee62295c6';
     const SECRET = 'a94c4c0d8171009c25c308bb640cb398';
-
-
 
     public function login(Request $request)
     {
@@ -25,7 +22,6 @@ class LoginController extends Controller
         $user =   new User();
         if($result['openid']) //如果拿到openid，去数据库查
         {
-
           $user_info =  $user->where('openid',$result['openid'])->first();
             if(!$user_info){
                 $user->openid = $result['openid'];

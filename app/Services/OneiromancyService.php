@@ -7,11 +7,13 @@
  */
 namespace App\Services;
 use App\Services\Traits\Pinyin;
+use App\Services\ResultService;
 use Illuminate\Support\Facades\Redis;
 
 class OneiromancyService
 {
     use Pinyin;
+
     protected  $appkey;
 
     public function __construct()
@@ -35,14 +37,14 @@ class OneiromancyService
         {
             if ($result['error_code']=='0')
             {
-                print_r($result);
+                return new ResultService(MAYI_RESULT_SUCCESS,$result);
             }
 
             else{
-                echo $result['error_code'] . ":" . $result['reason'];
+                return new ResultService(MAYI_RESULT_FAILED,'',$result['error_code'] . ":" . $result['reason']) ;
             }
         }else{
-            echo "请求失败";
+            return new ResultService(MAYI_RESULT_FAILED,'','请求失败') ;
         }
     }
 
@@ -52,8 +54,6 @@ class OneiromancyService
 //************2.解梦查询************
     public function query($word='',$cid='',$full=1)
     {
-
-
         $url = "http://v.juhe.cn/dream/query";
         $params = array(
             "key" => $this->appkey,//应用APPKEY(应用详细页查询)
@@ -63,20 +63,16 @@ class OneiromancyService
         );
         $paramstring = http_build_query($params);
         $content = $this->juhecurl($url, $paramstring);
-
         $result = json_decode($content, true);
-
-
         if ($result) {
             if ($result['error_code'] == '0') {
                 $result['num'] = count($result['result']);
-
-              echo json_encode($result) ;
+                return new ResultService(MAYI_RESULT_SUCCESS,$result);
             } else {
-                echo $result['error_code'] . ":" . $result['reason'];
+                return new ResultService(MAYI_RESULT_FAILED,'',$result['error_code'] . ":" . $result['reason']) ;
             }
         } else {
-            echo "请求失败";
+            return new ResultService(MAYI_RESULT_FAILED,'','请求失败') ;
         }
     }
 
@@ -117,7 +113,7 @@ class OneiromancyService
 
         curl_close($ch);
         Redis::set($pinyin,json_encode($res));
-      return  json_decode($res,true);
+        return new ResultService(MAYI_RESULT_SUCCESS,$res);
     }
 
     public function mate($man,$woman)
@@ -126,11 +122,10 @@ class OneiromancyService
         $params = array(
             "name1" => $man,
             "name2" => $woman
-
         );
         $paramstring = http_build_query($params);
-        $content = $this->juhecurl($url, $paramstring,1);
-        return $content;
+        $result = $this->juhecurl($url, $paramstring,1);
+        return new ResultService(MAYI_RESULT_SUCCESS,$result);
 
 
     }

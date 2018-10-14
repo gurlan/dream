@@ -82,6 +82,13 @@ $app['Dingo\Api\Auth\Auth']->extend('jwt', function ($app) {
      'auth' => App\Http\Middleware\Authenticate::class,
  ]);
 
+$app['Dingo\Api\Transformer\Factory']->setAdapter(function ($app) {
+    $fractal = new League\Fractal\Manager;
+
+    $fractal->setSerializer(new League\Fractal\Serializer\JsonApiSerializer);
+
+    return new Dingo\Api\Transformer\Adapter\Fractal($fractal);
+});
 
 /*
 |--------------------------------------------------------------------------
