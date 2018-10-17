@@ -20,9 +20,10 @@ class IndexController extends Controller
      * 解梦
      * @param
      */
-    public function index()
+    public function dream(Request $request)
     {
-        return   $this->dream->query();
+        $keyword = $request->input('keyword');
+        return   $this->dream->query($keyword);
     }
 
     /**

@@ -9,7 +9,8 @@
         "laravel/lumen-framework": "5.5.*",
         "vlucas/phpdotenv": "~2.2",
         "tymon/jwt-auth": "1.*@rc",
-        "dingo/api": "2.0.0-alpha1"
+        "dingo/api": "2.0.0-alpha1",
+        "mnabialek/laravel-sql-logger": "^2.2"
 
     },
     "require-dev": {

@@ -102,6 +102,7 @@ $app['Dingo\Api\Transformer\Factory']->setAdapter(function ($app) {
 */
 
  $app->register(App\Providers\AppServiceProvider::class);
+ $app->register(Mnabialek\LaravelSqlLogger\Providers\ServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 

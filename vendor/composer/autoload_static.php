@@ -62,6 +62,8 @@ class ComposerStaticInitfd90ef84c9b9a8e35351022f66442805
         'M' => 
         array (
             'Monolog\\' => 8,
+            'Mnabialek\\LaravelVersion\\' => 25,
+            'Mnabialek\\LaravelSqlLogger\\' => 27,
         ),
         'L' => 
         array (
@@ -124,8 +126,8 @@ class ComposerStaticInitfd90ef84c9b9a8e35351022f66442805
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'Webmozart\\Assert\\' => 
         array (
@@ -210,6 +212,14 @@ class ComposerStaticInitfd90ef84c9b9a8e35351022f66442805
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'Mnabialek\\LaravelVersion\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mnabialek/laravel-version/src',
+        ),
+        'Mnabialek\\LaravelSqlLogger\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mnabialek/laravel-sql-logger/src',
         ),
         'League\\Fractal\\' => 
         array (

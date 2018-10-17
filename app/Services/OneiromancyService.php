@@ -5,25 +5,31 @@
  * Date: 2018/9/5
  * Time: 13:11
  */
+
 namespace App\Services;
+
+use App\Models\Keyword;
 use App\Services\Traits\Pinyin;
 use App\Services\ResultService;
 use Illuminate\Support\Facades\Redis;
+
 
 class OneiromancyService
 {
     use Pinyin;
 
-    protected  $appkey;
+    protected $appkey;
+    protected $keyword;
 
-    public function __construct()
+    public function __construct(Keyword $keyword)
     {
         $this->appkey = '3b7e647316939205f798ea0611c97f22';
+        $this->keyword = $keyword;
 
     }
 
     //************1.类型************
-    public function category($fid=0)
+    public function category($fid = 0)
     {
         $url = "http://v.juhe.cn/dream/category";
         $params = array(
@@ -33,46 +39,45 @@ class OneiromancyService
         $paramstring = http_build_query($params);
         $content = $this->juhecurl($url, $paramstring);
         $result = json_decode($content, true);
-        if ($result)
-        {
-            if ($result['error_code']=='0')
-            {
-                return new ResultService(MAYI_RESULT_SUCCESS,$result);
+        if ($result) {
+            if ($result['error_code'] == '0') {
+                return new ResultService(MAYI_RESULT_SUCCESS, $result);
+            } else {
+                return new ResultService(MAYI_RESULT_FAILED, '', $result['error_code'] . ":" . $result['reason']);
             }
-
-            else{
-                return new ResultService(MAYI_RESULT_FAILED,'',$result['error_code'] . ":" . $result['reason']) ;
-            }
-        }else{
-            return new ResultService(MAYI_RESULT_FAILED,'','请求失败') ;
+        } else {
+            return new ResultService(MAYI_RESULT_FAILED, '', '请求失败');
         }
     }
 
 
-
-
 //************2.解梦查询************
-    public function query($word='',$cid='',$full=1)
+    public function query($word = '', $cid = '', $full = 1)
     {
+        $data['keyword'] = $word;
+        $data['add_time'] = time();
+        $this->keyword->insert($data);
         $url = "http://v.juhe.cn/dream/query";
         $params = array(
             "key" => $this->appkey,//应用APPKEY(应用详细页查询)
             "q" => $word,//梦境关键字，如：黄金 需要utf8 urlencode
-            "cid" =>$cid,//指定分类，默认全部
+            "cid" => $cid,//指定分类，默认全部
             "full" => $full,//是否显示详细信息，1:是 0:否，默认0
         );
         $paramstring = http_build_query($params);
         $content = $this->juhecurl($url, $paramstring);
         $result = json_decode($content, true);
+
+
         if ($result) {
             if ($result['error_code'] == '0') {
                 $result['num'] = count($result['result']);
-                return new ResultService(MAYI_RESULT_SUCCESS,$result);
+                return new ResultService(MAYI_RESULT_SUCCESS, $result);
             } else {
-                return new ResultService(MAYI_RESULT_FAILED,'',$result['error_code'] . ":" . $result['reason']) ;
+                return new ResultService(MAYI_RESULT_FAILED, '', $result['error_code'] . ":" . $result['reason']);
             }
         } else {
-            return new ResultService(MAYI_RESULT_FAILED,'','请求失败') ;
+            return new ResultService(MAYI_RESULT_FAILED, '', '请求失败');
         }
     }
 
@@ -83,22 +88,23 @@ class OneiromancyService
      * @param $type
      * @return mixed
      */
-    public function star($constellation, $type){
+    public function star($constellation, $type)
+    {
 
 
-        $pinyin = $this->encode($constellation,'all');
+        $pinyin = $this->encode($constellation, 'all');
 
-        if(Redis::get($pinyin.$type)){
-         //   return; Redis::get($pinyin.$type);
+        if (Redis::get($pinyin . $type)) {
+            //   return; Redis::get($pinyin.$type);
         }
 
         $ch = curl_init();
 
-        $constellation=urlencode($constellation);
+        $constellation = urlencode($constellation);
 
-        $url = "https://api.shenjian.io/constellation/".$type."/?appid=08bacffd1caaa2b7c4ffb35b6a6eca73&constellation={$constellation}";
+        $url = "https://api.shenjian.io/constellation/" . $type . "/?appid=08bacffd1caaa2b7c4ffb35b6a6eca73&constellation={$constellation}";
 
-       // dd($url);
+        // dd($url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept-Encoding:gzip'));
 
         curl_setopt($ch, CURLOPT_ENCODING, "gzip");
@@ -107,16 +113,16 @@ class OneiromancyService
 
 // 执行HTTP请求
 
-        curl_setopt($ch , CURLOPT_URL , $url);
+        curl_setopt($ch, CURLOPT_URL, $url);
 
         $res = curl_exec($ch);
 
         curl_close($ch);
-        Redis::set($pinyin,json_encode($res));
-        return new ResultService(MAYI_RESULT_SUCCESS,$res);
+        Redis::set($pinyin, json_encode($res));
+        return new ResultService(MAYI_RESULT_SUCCESS, $res);
     }
 
-    public function mate($man,$woman)
+    public function mate($man, $woman)
     {
         $url = 'https://www.meiguoshenpo.com/xingming/peidui/ceshi.asp';
         $params = array(
@@ -124,12 +130,13 @@ class OneiromancyService
             "name2" => $woman
         );
         $paramstring = http_build_query($params);
-        $result = $this->juhecurl($url, $paramstring,1);
-        return new ResultService(MAYI_RESULT_SUCCESS,$result);
+        $result = $this->juhecurl($url, $paramstring, 1);
+        return new ResultService(MAYI_RESULT_SUCCESS, $result);
 
 
     }
-    public  function juhecurl($url, $params = false, $ispost = 0)
+
+    public function juhecurl($url, $params = false, $ispost = 0)
     {
         $httpInfo = array();
         $ch = curl_init();
