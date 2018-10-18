@@ -28,6 +28,11 @@ return array(
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'Namshi\\JOSE\\' => array($vendorDir . '/namshi/jose/src/Namshi/JOSE'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
+<<<<<<< HEAD
+=======
+    'Mnabialek\\LaravelVersion\\' => array($vendorDir . '/mnabialek/laravel-version/src'),
+    'Mnabialek\\LaravelSqlLogger\\' => array($vendorDir . '/mnabialek/laravel-sql-logger/src'),
+>>>>>>> develop
     'League\\Fractal\\' => array($vendorDir . '/league/fractal/src'),
     'Lcobucci\\JWT\\' => array($vendorDir . '/lcobucci/jwt/src'),
     'Laravel\\Lumen\\' => array($vendorDir . '/laravel/lumen-framework/src'),

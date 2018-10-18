@@ -19,12 +19,16 @@
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', function ($api) {
-
-    $api->group(['namespace' => 'App\Http\Controllers\Api\V1\home','prefix' => 'home','as' => 'home.','middleware' => ['api.auth']],function($api){
-        $api->get('/', [
-            'as' => 'home.index',
-            'uses' => 'IndexController@index',
-        ]);
+    $api->group(['namespace' => 'App\Http\Controllers\Api\V1\home','prefix' => 'home','as' => 'home.'],function($api){
+       $api->get('/dream','IndexController@dream');//解梦
+       $api->any('/star','IndexController@star');//运势
+       $api->get('/login','LoginController@login');//登录
+       $api->get('/get_user_info','LoginController@get_user_info');//获取用户信息
+       $api->get('/update_user_info','LoginController@update_user_info');//更新用户信息
+       $api->get('/suggestion','IndexController@suggestion');//意见建议
+       $api->get('/mate','IndexController@mate');//姓名配对
     });
+    
+    
 
 });

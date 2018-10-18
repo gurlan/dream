@@ -377,7 +377,11 @@ class ClassLoader
             $subPath = $class;
             while (false !== $lastPos = strrpos($subPath, '\\')) {
                 $subPath = substr($subPath, 0, $lastPos);
+<<<<<<< HEAD
                 $search = $subPath.'\\';
+=======
+                $search = $subPath . '\\';
+>>>>>>> develop
                 if (isset($this->prefixDirsPsr4[$search])) {
                     $pathEnd = DIRECTORY_SEPARATOR . substr($logicalPathPsr4, $lastPos + 1);
                     foreach ($this->prefixDirsPsr4[$search] as $dir) {

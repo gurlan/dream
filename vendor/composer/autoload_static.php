@@ -4,7 +4,11 @@
 
 namespace Composer\Autoload;
 
+<<<<<<< HEAD
 class ComposerStaticInita85b0ebc1bf0cf3e549ff2f0c4731470
+=======
+class ComposerStaticInitfd90ef84c9b9a8e35351022f66442805
+>>>>>>> develop
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -62,6 +66,11 @@ class ComposerStaticInita85b0ebc1bf0cf3e549ff2f0c4731470
         'M' => 
         array (
             'Monolog\\' => 8,
+<<<<<<< HEAD
+=======
+            'Mnabialek\\LaravelVersion\\' => 25,
+            'Mnabialek\\LaravelSqlLogger\\' => 27,
+>>>>>>> develop
         ),
         'L' => 
         array (
@@ -211,6 +220,17 @@ class ComposerStaticInita85b0ebc1bf0cf3e549ff2f0c4731470
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
+<<<<<<< HEAD
+=======
+        'Mnabialek\\LaravelVersion\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mnabialek/laravel-version/src',
+        ),
+        'Mnabialek\\LaravelSqlLogger\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mnabialek/laravel-sql-logger/src',
+        ),
+>>>>>>> develop
         'League\\Fractal\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/fractal/src',
@@ -1015,11 +1035,19 @@ class ComposerStaticInita85b0ebc1bf0cf3e549ff2f0c4731470
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+<<<<<<< HEAD
             $loader->prefixLengthsPsr4 = ComposerStaticInita85b0ebc1bf0cf3e549ff2f0c4731470::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInita85b0ebc1bf0cf3e549ff2f0c4731470::$prefixDirsPsr4;
             $loader->fallbackDirsPsr4 = ComposerStaticInita85b0ebc1bf0cf3e549ff2f0c4731470::$fallbackDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInita85b0ebc1bf0cf3e549ff2f0c4731470::$prefixesPsr0;
             $loader->classMap = ComposerStaticInita85b0ebc1bf0cf3e549ff2f0c4731470::$classMap;
+=======
+            $loader->prefixLengthsPsr4 = ComposerStaticInitfd90ef84c9b9a8e35351022f66442805::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitfd90ef84c9b9a8e35351022f66442805::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr4 = ComposerStaticInitfd90ef84c9b9a8e35351022f66442805::$fallbackDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitfd90ef84c9b9a8e35351022f66442805::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitfd90ef84c9b9a8e35351022f66442805::$classMap;
+>>>>>>> develop
 
         }, null, ClassLoader::class);
     }
