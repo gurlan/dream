@@ -14,7 +14,7 @@
 * License for the specific language governing permissions and limitations under
 * the License.
 */
-namespace App\Services\baidu;
+namespace App\Services\Baidu;
 use App\Services\Baidu\AipHttpClient;
 use App\Services\Baidu\AipHttpUtil;
 /**

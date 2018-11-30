@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Home;
 
 use Laravel\Lumen\Routing\Controller as BaseController;
-use App\Services\baidu\AipFace;
+use App\Services\Baidu\AipFace;
 class FaceController extends BaseController
 {
     // 你的 APPID AK SK

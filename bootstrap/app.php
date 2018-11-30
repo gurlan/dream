@@ -116,6 +116,14 @@ $app['Dingo\Api\Transformer\Factory']->setAdapter(function ($app) {
 | can respond to, as well as the controllers that may handle them.
 |
 */
+/*
+ * 配置日志文件为每日
+ */
+$app->configureMonologUsing(function(Monolog\Logger $monoLog) use ($app){
+    return $monoLog->pushHandler(
+        new \Monolog\Handler\RotatingFileHandler($app->storagePath().'/logs/lumen.log',5)
+    );
+});
 
 $app->router->group([
     'namespace' => 'App\Http\Controllers',

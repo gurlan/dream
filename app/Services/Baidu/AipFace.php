@@ -15,7 +15,7 @@
 * the License.
 */
 
-namespace App\Services\baidu;
+namespace App\Services\Baidu;
 use App\Services\Baidu\AipBase;
 class AipFace extends AipBase {
 
