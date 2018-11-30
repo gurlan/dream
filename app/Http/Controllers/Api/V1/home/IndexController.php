@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\home;
+namespace App\Http\Controllers\Api\V1\Home;
 
 use App\Models\Suggestion;
 use App\Services\OneiromancyService;
